@@ -1,0 +1,25 @@
+name: Java CI with Maven Caching for Bai06
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: 'maven' # Requirement for Bai06: Enable dependency caching
+
+    - name: Build and Verify with Maven (Bai06)
+      run: mvn -B clean verify --file Bai06/pom.xml
